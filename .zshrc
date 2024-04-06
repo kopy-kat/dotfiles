@@ -70,7 +70,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-open zsh-autosuggestions)
+plugins=(git git-open zsh-autosuggestions zsh-syntax-highlighting web-search)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -97,8 +97,6 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias lg="lazygit"
 alias ft="forge test"
 alias fb="forge build"
@@ -108,15 +106,27 @@ alias ptr="pnpm test -r"
 alias pd="pnpm dev"
 alias pb="pnpm build"
 
+alias vim="nvim"
+
+# Paths
+
+# NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Huff
 export PATH="$PATH:/Users/konradkopp/.huff/bin"
 
+# Foundry
 export PATH="$PATH:/Users/konradkopp/.foundry/bin"
 
+# Rust
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# Nargo
+export NARGO_HOME="/Users/konradkopp/.nargo"
+export PATH="$PATH:$NARGO_HOME/bin"
 
 # pnpm
 export PNPM_HOME="/Users/konradkopp/Library/pnpm"
@@ -126,7 +136,7 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-# >>> conda initialize >>>
+# Conda
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/konradkopp/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
@@ -139,9 +149,3 @@ else
     fi
 fi
 unset __conda_setup
-# <<< conda initialize <<<
-
-
-export NARGO_HOME="/Users/konradkopp/.nargo"
-
-export PATH="$PATH:$NARGO_HOME/bin"
