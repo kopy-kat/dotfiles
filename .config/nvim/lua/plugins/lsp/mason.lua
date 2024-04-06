@@ -31,12 +31,11 @@ return {
         "html",
         "cssls",
         "tailwindcss",
-        "svelte",
         "lua_ls",
         "graphql",
-        "emmet_ls",
         "prismals",
         "pyright",
+        "solidity",
       },
     })
 
@@ -48,6 +47,7 @@ return {
         "black", -- python formatter
         "pylint",
         "eslint_d",
+        "solhint",
       },
     })
   end,

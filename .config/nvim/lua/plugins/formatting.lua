@@ -10,7 +10,7 @@ return {
         typescript = { "prettier" },
         javascriptreact = { "prettier" },
         typescriptreact = { "prettier" },
-        svelte = { "prettier" },
+
         css = { "prettier" },
         html = { "prettier" },
         json = { "prettier" },
@@ -25,6 +25,20 @@ return {
         lsp_fallback = true,
         async = false,
         timeout_ms = 1000,
+      },
+      formatters = {
+        forge_formatter = function()
+          return {
+            command = "forge",
+            args = { "fmt" },
+            cwd = require("conform.util").root_file({ "foundry.toml" }),
+            -- When cwd is not found, don't run the formatter (default false)
+            require_cwd = true,
+            condition = function(ctx)
+              return vim.fs.basename(ctx.filename) ~= "foundry.toml"
+            end,
+          }
+        end,
       },
     })
 
