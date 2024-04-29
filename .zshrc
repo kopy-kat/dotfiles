@@ -106,6 +106,8 @@ alias ptr="pnpm test -r"
 alias pd="pnpm dev"
 alias pb="pnpm build"
 
+alias gm="foundryup"
+
 alias vim="nvim"
 
 # Paths
