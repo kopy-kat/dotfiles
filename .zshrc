@@ -110,6 +110,8 @@ alias gm="foundryup"
 
 alias vim="nvim"
 
+alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions --all"
+
 # Paths
 
 # NVM
@@ -151,3 +153,8 @@ else
     fi
 fi
 unset __conda_setup
+
+eval "$(fzf --zsh)"
+
+eval "$(zoxide init zsh)"
+alias cd="z"
