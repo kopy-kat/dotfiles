@@ -98,8 +98,10 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 alias lg="lazygit"
+
 alias ft="forge test"
 alias fb="forge build"
+alias fd="source .env && forge script script/Deploy.s.sol:DeployScript --rpc-url $DEPLOYMENT_RPC --broadcast --sender $DEPLOYMENT_SENDER --verify"
 
 alias pt="pnpm test"
 alias ptr="pnpm test -r"
