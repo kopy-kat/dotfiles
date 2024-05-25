@@ -113,6 +113,7 @@ alias gm="foundryup"
 alias vim="nvim"
 
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions --all"
+alias lsg="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions --all --grid"
 
 # Paths
 
@@ -160,3 +161,10 @@ eval "$(fzf --zsh)"
 
 eval "$(zoxide init zsh)"
 alias cd="z"
+
+# bun completions
+[ -s "/Users/konradkopp/.bun/_bun" ] && source "/Users/konradkopp/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
