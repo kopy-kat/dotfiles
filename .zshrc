@@ -168,3 +168,6 @@ alias cd="z"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Created by `pipx` on 2024-05-27 20:10:58
+export PATH="$PATH:/Users/konradkopp/.local/bin"
