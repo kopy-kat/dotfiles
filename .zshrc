@@ -70,7 +70,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-open zsh-autosuggestions zsh-syntax-highlighting web-search)
+plugins=(git git-open zsh-autosuggestions zsh-syntax-highlighting web-search zsh-history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -116,6 +116,12 @@ alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time
 alias lsg="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions --all --grid"
 
 alias spt="spotify_player"
+
+alias gclone='function _gclone() {
+    local url="$1"
+    local name="${2:-$(basename "$url" .git)}"
+    git clone "$url" "$name" && cd "$name"
+}; _gclone'
 
 # Paths
 
