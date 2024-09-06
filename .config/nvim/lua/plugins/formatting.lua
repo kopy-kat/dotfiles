@@ -20,14 +20,15 @@ return {
         liquid = { "prettier" },
         lua = { "stylua" },
         python = { "isort", "black" },
+        solidity = { "forge_fmt" },
       },
       format_on_save = {
-        lsp_fallback = true,
+        lsp_fallback = false,
         async = false,
         timeout_ms = 1000,
       },
       formatters = {
-        forge_formatter = function()
+        forge_fmt = function()
           return {
             command = "forge",
             args = { "fmt" },
