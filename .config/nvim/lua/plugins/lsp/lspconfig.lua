@@ -109,6 +109,17 @@ return {
           },
         })
       end,
+      ["solidity"] = function()
+        -- configure solidity server
+        lspconfig["solidity_ls_nomicfoundation"].setup({
+          capabilities = capabilities,
+          settings = {
+            solidity = {
+              includePath = "",
+            },
+          },
+        })
+      end,
     })
   end,
 }

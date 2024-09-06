@@ -24,6 +24,7 @@ return {
 
     telescope.setup({
       defaults = {
+        file_ignore_patterns = { ".git/", "node_modules" },
         path_display = { "smart" },
         mappings = {
           i = {
@@ -32,6 +33,11 @@ return {
             ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
             ["<C-t>"] = trouble_telescope.open,
           },
+        },
+      },
+      pickers = {
+        find_files = {
+          find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
         },
       },
     })

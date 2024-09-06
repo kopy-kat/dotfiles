@@ -27,7 +27,6 @@ return {
     mason_lspconfig.setup({
       -- list of servers for mason to install
       ensure_installed = {
-        "tsserver",
         "html",
         "cssls",
         "tailwindcss",
@@ -35,7 +34,7 @@ return {
         "graphql",
         "prismals",
         "pyright",
-        "solidity",
+        "solidity_ls_nomicfoundation",
       },
     })
 
