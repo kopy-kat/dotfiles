@@ -35,6 +35,12 @@ return {
         "prismals",
         "pyright",
         "solidity_ls_nomicfoundation",
+        "mdx_analyzer",
+        "jsonls",
+        "docker_compose_language_service",
+        "dockerls",
+        "rust_analyzer",
+        "ts_ls",
       },
     })
 
