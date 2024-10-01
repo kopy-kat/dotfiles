@@ -49,22 +49,35 @@ return {
       },
     }
 
+    -- Function to get the full file path
+    local function get_current_file_path()
+      local file_path = vim.fn.expand("%:.")
+      if file_path == "" then
+        return "[No Name]"
+      end
+      return file_path
+    end
+
     -- configure lualine with modified theme
     lualine.setup({
       options = {
         theme = my_lualine_theme,
       },
       sections = {
-        lualine_x = {
-          {
-            lazy_status.updates,
-            cond = lazy_status.has_updates,
-            color = { fg = "#ff9e64" },
-          },
-          { "encoding" },
-          { "fileformat" },
-          { "filetype" },
-        },
+        lualine_a = { "mode" },
+        lualine_b = { "branch", "diff", "diagnostics" },
+        lualine_c = { get_current_file_path },
+        lualine_x = { "filetype" },
+        lualine_y = { "progress" },
+        lualine_z = { "location" },
+      },
+      inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = { "filename" },
+        lualine_x = { "location" },
+        lualine_y = {},
+        lualine_z = {},
       },
     })
   end,
