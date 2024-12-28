@@ -115,7 +115,7 @@ alias vim="nvim"
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions --all"
 alias lsg="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions --all --grid"
 
-alias spt="spotify_player"
+alias x="exit"
 
 alias gclone='function _gclone() {
     local url="$1"
