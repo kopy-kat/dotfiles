@@ -101,10 +101,8 @@ alias lg="lazygit"
 
 alias ft="forge test"
 alias fb="forge build"
-alias fd="source .env && forge script script/Deploy.s.sol:DeployScript --rpc-url $DEPLOYMENT_RPC --broadcast --sender $DEPLOYMENT_SENDER --verify"
 
 alias pt="pnpm test"
-alias ptr="pnpm test -r"
 alias pd="pnpm dev"
 alias pb="pnpm build"
 
@@ -116,6 +114,8 @@ alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time
 alias lsg="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions --all --grid"
 
 alias x="exit"
+
+alias ghrel='gh release create $1 --generate-notes'
 
 alias gclone='function _gclone() {
     local url="$1"
