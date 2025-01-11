@@ -115,7 +115,7 @@ alias lsg="eza --color=always --long --git --no-filesize --icons=always --no-tim
 
 alias x="exit"
 
-alias ghrel='gh release create $1 --generate-notes'
+alias ghrel='gh release create $1 --generate-notes --target main'
 
 alias gclone='function _gclone() {
     local url="$1"
