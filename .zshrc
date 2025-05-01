@@ -106,6 +106,11 @@ alias pt="pnpm test"
 alias pd="pnpm dev"
 alias pb="pnpm build"
 
+alias bt="bun run test"
+alias bd="bun run dev"
+alias bb="bun run build"
+
+
 alias gm="foundryup"
 
 alias vim="nvim"
