@@ -48,7 +48,16 @@ return {
       },
       pickers = {
         find_files = {
-          find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
+          find_command = {
+            "rg",
+            "--files",
+            "--hidden",
+            "--no-ignore-vcs",
+            "-g",
+            "!.git/*",
+            "-g",
+            "!node_modules/*",
+          },
         },
       },
     })
