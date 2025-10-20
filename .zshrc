@@ -70,7 +70,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-open zsh-autosuggestions zsh-syntax-highlighting web-search zsh-history-substring-search)
+plugins=(git git-open zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -128,6 +128,8 @@ alias gclone='function _gclone() {
     git clone "$url" "$name" && cd "$name"
 }; _gclone'
 
+alias opr='op run --env-file=".env" --'
+
 # Paths
 
 # NVM
@@ -184,3 +186,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Created by `pipx` on 2024-05-27 20:10:58
 export PATH="$PATH:/Users/konradkopp/.local/bin"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+export FORCE_COLOR=true
