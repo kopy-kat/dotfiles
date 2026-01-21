@@ -24,7 +24,7 @@ return {
 
     telescope.setup({
       defaults = {
-        file_ignore_patterns = { ".git/", "node_modules", "%.iorpt$" },
+        file_ignore_patterns = { ".git/", "node_modules", "%.iorpt$", ".next" },
         path_display = { "full" },
         mappings = {
           i = {

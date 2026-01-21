@@ -189,3 +189,4 @@ export PATH="$PATH:/Users/konradkopp/.local/bin"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 export FORCE_COLOR=true
+export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
