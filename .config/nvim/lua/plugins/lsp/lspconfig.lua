@@ -7,7 +7,6 @@ return {
     "williamboman/mason-lspconfig.nvim",
     "hrsh7th/cmp-nvim-lsp",
     { "antosha417/nvim-lsp-file-operations", config = true },
-    { "folke/neodev.nvim", opts = {} },
   },
   config = function()
     -- safe requires so we can produce helpful errors instead of nil-call stacktraces
@@ -81,14 +80,6 @@ return {
 
     -- if mason-lspconfig is present, call setup() then setup_handlers()
     if ok_mason_lspconfig then
-      -- ensure_installed is optional; you can leave it empty or fill with servers you want auto-installed
-      mason_lspconfig.setup({
-        ensure_installed = {
-          "lua_ls",
-          -- add other servers you want guaranteed installed, e.g. "pyright", "tsserver"
-        },
-      })
-
       -- setup_handlers is provided by mason-lspconfig; guard the call
       if type(mason_lspconfig.setup_handlers) == "function" then
         mason_lspconfig.setup_handlers({
@@ -101,14 +92,6 @@ return {
             if ok and srv then
               lspconfig[server_name].setup({
                 capabilities = capabilities,
-              })
-            end
-          end,
-          ["graphql"] = function()
-            if lspconfig["graphql"] then
-              lspconfig["graphql"].setup({
-                capabilities = capabilities,
-                filetypes = { "graphql", "gql", "typescriptreact", "javascriptreact" },
               })
             end
           end,
