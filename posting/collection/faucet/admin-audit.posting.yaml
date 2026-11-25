@@ -1,0 +1,6 @@
+name: admin audit
+method: GET
+url: "${FAUCET}/api/admin/audit"
+headers:
+- name: x-api-key
+  value: "${FAUCET_API_KEY}"

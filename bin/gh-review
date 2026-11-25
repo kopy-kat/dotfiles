@@ -1,0 +1,142 @@
+#!/bin/bash
+set -e
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Check arguments
+if [ -z "$1" ]; then
+    echo -e "${RED}Usage: gh-review <pr-number> [repo]${NC}"
+    echo "  pr-number: The PR number to review"
+    echo "  repo: Optional. Format: owner/repo (defaults to current repo)"
+    exit 1
+fi
+
+PR_NUMBER=$1
+REPO_FLAG=""
+if [ -n "$2" ]; then
+    REPO_FLAG="--repo $2"
+fi
+
+REVIEW_FILE="REVIEW-${PR_NUMBER}.md"
+
+# Check if review file already exists
+if [ -f "$REVIEW_FILE" ]; then
+    echo -e "${GREEN}Found existing review file: ${REVIEW_FILE}${NC}"
+    echo -e "${BLUE}Skipping generation, resuming review...${NC}"
+else
+    echo -e "${BLUE}Fetching PR #${PR_NUMBER}...${NC}"
+
+    # Fetch PR metadata
+    PR_JSON=$(gh pr view $PR_NUMBER $REPO_FLAG --json title,body,author,baseRefName,headRefName,files,additions,deletions,changedFiles)
+    PR_TITLE=$(echo "$PR_JSON" | jq -r '.title')
+    PR_BODY=$(echo "$PR_JSON" | jq -r '.body // "No description provided"')
+    PR_AUTHOR=$(echo "$PR_JSON" | jq -r '.author.login')
+    PR_BASE=$(echo "$PR_JSON" | jq -r '.baseRefName')
+    PR_HEAD=$(echo "$PR_JSON" | jq -r '.headRefName')
+    PR_ADDITIONS=$(echo "$PR_JSON" | jq -r '.additions')
+    PR_DELETIONS=$(echo "$PR_JSON" | jq -r '.deletions')
+    PR_CHANGED_FILES=$(echo "$PR_JSON" | jq -r '.changedFiles')
+    PR_FILES=$(echo "$PR_JSON" | jq -r '.files[].path' | sort)
+
+    echo -e "${GREEN}PR: ${PR_TITLE}${NC}"
+    echo -e "Author: ${PR_AUTHOR} | Files: ${PR_CHANGED_FILES} | +${PR_ADDITIONS} -${PR_DELETIONS}"
+
+    # Fetch the diff
+    echo -e "${BLUE}Fetching diff...${NC}"
+    PR_DIFF=$(gh pr diff $PR_NUMBER $REPO_FLAG)
+
+    # Create temp file with context for Claude
+    CONTEXT_FILE=$(mktemp)
+    cat > "$CONTEXT_FILE" << 'PROMPT_END'
+You are helping review a pull request. Analyze the PR and provide a structured review guide.
+
+IMPORTANT: Output ONLY the markdown content below. Do not attempt to write files or ask for permissions. Just output the text directly.
+
+Output the following markdown sections:
+
+## Intent
+A 2-3 sentence summary of what this PR is trying to accomplish. Focus on the "why" not the "what".
+
+## Approach
+How the author chose to implement this. Note any architectural decisions or patterns used.
+
+## Risk Areas
+What could go wrong? Edge cases to watch for? Areas that need careful review?
+
+## Review Order
+List the files in the order they should be reviewed, with brief reasoning. Group related files.
+Format as a numbered list. Put entry points and API changes first, core logic second, utilities last.
+
+## Checklist
+A markdown checklist of all files, in the review order you suggested above.
+Format: `- [ ] path/to/file.ts - brief note about what to look for`
+
+---
+
+PROMPT_END
+
+    cat >> "$CONTEXT_FILE" << EOF
+
+# PR Information
+
+**Title:** $PR_TITLE
+**Author:** $PR_AUTHOR
+**Branch:** $PR_HEAD -> $PR_BASE
+**Stats:** $PR_CHANGED_FILES files, +$PR_ADDITIONS -$PR_DELETIONS
+
+## PR Description
+$PR_BODY
+
+## Changed Files
+$PR_FILES
+
+## Diff
+\`\`\`diff
+$PR_DIFF
+\`\`\`
+EOF
+
+    echo -e "${BLUE}Generating review guide with Claude...${NC}"
+
+    # Call claude CLI and save output
+    claude -p "$(cat "$CONTEXT_FILE")" --output-format text > "$REVIEW_FILE"
+
+    # Add header to the review file
+    TEMP_REVIEW=$(mktemp)
+    cat > "$TEMP_REVIEW" << EOF
+# PR Review: #${PR_NUMBER}
+> **${PR_TITLE}** by @${PR_AUTHOR}
+> ${PR_HEAD} -> ${PR_BASE} | ${PR_CHANGED_FILES} files | +${PR_ADDITIONS} -${PR_DELETIONS}
+
+---
+
+$(cat "$REVIEW_FILE")
+EOF
+    mv "$TEMP_REVIEW" "$REVIEW_FILE"
+
+    # Cleanup
+    rm "$CONTEXT_FILE"
+
+    echo -e "${GREEN}Generated: ${REVIEW_FILE}${NC}"
+fi
+
+# Checkout the PR
+echo -e "${BLUE}Checking out PR...${NC}"
+gh pr checkout $PR_NUMBER $REPO_FLAG
+
+# Get the base branch for diffview
+BASE_REF="origin/$PR_BASE"
+
+echo -e "${GREEN}Ready for review!${NC}"
+echo ""
+echo -e "Opening nvim..."
+echo -e "  ${BLUE}<leader>gr${NC} - Open diffview when ready to see changes"
+echo ""
+
+# Open nvim with the review file only
+# User opens diffview manually with <leader>gr after reading the overview
+nvim "$REVIEW_FILE"

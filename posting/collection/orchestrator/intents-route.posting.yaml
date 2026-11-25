@@ -1,0 +1,29 @@
+name: intents route
+method: POST
+url: "${ORCH}/intents/route"
+headers:
+- name: Content-Type
+  value: application/json
+- name: X-Api-Key
+  value: "${ORCH_API_KEY}"
+body:
+  content: |-
+    {
+      "account": { "address": "${ACCOUNT}", "accountType": "ERC7579", "setupOps": [] },
+      "destinationChainId": 42161,
+      "destinationExecutions": [],
+      "tokenRequests": [
+        { "tokenAddress": "0xAF88D065E77C8CC2239327C5EDB3A432268E5831" }
+      ],
+      "accountAccessList": [
+        { "chainId": 8453, "tokenAddress": "0x0000000000000000000000000000000000000000", "amount": "10000000000000000" }
+      ],
+      "auxiliaryFunds": [
+        { "chainId": 8453, "tokenAddress": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913", "amount": "1000000000000000000000" }
+      ],
+      "options": {
+        "topupCompact": false,
+        "sponsorSettings": { "gasSponsored": true, "bridgeFeesSponsored": true, "swapFeesSponsored": true },
+        "settlementLayers": ["ECO", "ACROSS"]
+      }
+    }

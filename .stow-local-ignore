@@ -20,3 +20,5 @@ _darcs
 ^/README.*
 ^/LICENSE.*
 ^/COPYING
+# posting collection is launched by path (post/posts in .zshrc), not symlinked
+^/posting

@@ -1,0 +1,4 @@
+name: ready
+description: Orchestrator health check.
+method: GET
+url: "${ORCH}/ready"

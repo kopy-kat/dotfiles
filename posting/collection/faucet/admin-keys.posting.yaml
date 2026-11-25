@@ -1,0 +1,7 @@
+name: admin keys
+description: Faucet admin keys. Verify method against API (defaulted to GET).
+method: GET
+url: "${FAUCET}/api/admin/keys"
+headers:
+- name: x-api-key
+  value: "${FAUCET_API_KEY}"

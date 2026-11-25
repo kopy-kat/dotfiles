@@ -1,0 +1,15 @@
+name: eth_getBalance
+description: Template JSON-RPC call. Clone this file per request; edit vars in env/local.env.
+method: POST
+url: "${RPC_URL}"
+headers:
+- name: Content-Type
+  value: application/json
+body:
+  content: |-
+    {
+      "jsonrpc": "2.0",
+      "method": "eth_getBalance",
+      "params": ["${ADDRESS}", "latest"],
+      "id": ${CHAIN_ID}
+    }

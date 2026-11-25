@@ -1,0 +1,11 @@
+name: drip
+method: POST
+url: "${FAUCET}/api/drip"
+headers:
+- name: Content-Type
+  value: application/json
+- name: x-api-key
+  value: "${FAUCET_API_KEY}"
+body:
+  content: |-
+    {"chainId": 42161, "token": "USDC", "amount": "5000000", "recipient": "${ACCOUNT}", "reason": "manual"}

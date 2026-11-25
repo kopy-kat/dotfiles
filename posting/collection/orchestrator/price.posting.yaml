@@ -1,0 +1,13 @@
+name: price
+description: Price service. Add/remove symbols params as needed.
+method: GET
+url: "${ORCH}/price-service/price"
+params:
+- name: source
+  value: alchemy
+- name: symbols
+  value: ETH
+- name: symbols
+  value: USDC
+- name: symbols
+  value: USDT

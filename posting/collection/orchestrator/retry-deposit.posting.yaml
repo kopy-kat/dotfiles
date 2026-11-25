@@ -1,0 +1,21 @@
+name: retry deposit
+method: POST
+url: "${ORCH}/deposit-processor/admin/retry-deposit"
+headers:
+- name: Content-Type
+  value: application/json
+- name: x-api-key
+  value: "${ORCH_RETRY_KEY}"
+body:
+  content: |-
+    {
+      "address": "0x99d4799A4b0071B33C8C992B14a3e42834120698",
+      "deposit": {
+        "chainId": "eip155:8453",
+        "token": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "amount": "1500000000",
+        "txHash": "0xe0b5bcfc33ad7a01696a3ff3a6b32965ef7474c0d62b9cabb9ca6d7c498af6df",
+        "sender": "0xA9236f4950001355455A5b016a25fa27B947C9Ac"
+      },
+      "settlementLayer": "RHINO"
+    }

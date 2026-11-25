@@ -1,0 +1,15 @@
+name: refund deposit
+method: POST
+url: "${ORCH}/deposit-processor/deposits/refund"
+headers:
+- name: Content-Type
+  value: application/json
+- name: x-api-key
+  value: "${ORCH_ADMIN_KEY}"
+body:
+  content: |-
+    {
+      "chain": "eip155:8453",
+      "txHash": "0x97e9676cd2a487e3a2914c47a584ed2b77e90294273a05f9bf3ad9d93b9aec34",
+      "recipient": "0x6B6275b1012B15460578A3bd2538478fe5b69384"
+    }

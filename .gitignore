@@ -1,1 +1,4 @@
 node_modules
+
+# posting: keep op references local
+posting/env/secrets.env

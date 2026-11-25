@@ -1,0 +1,14 @@
+name: intents split
+method: POST
+url: "${ORCH}/intents/split"
+headers:
+- name: Content-Type
+  value: application/json
+- name: X-Api-Key
+  value: "${ORCH_API_KEY}"
+body:
+  content: |-
+    {
+      "chainId": 8453,
+      "tokens": { "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913": "100000000000" }
+    }
